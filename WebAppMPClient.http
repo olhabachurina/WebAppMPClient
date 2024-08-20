@@ -1,0 +1,6 @@
+@WebAppMPClient_HostAddress = http://localhost:5105
+
+GET {{WebAppMPClient_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

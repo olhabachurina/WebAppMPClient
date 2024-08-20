@@ -1,0 +1,146 @@
+﻿
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+
+    <header class="bg-blue-600 text-white p-4 shadow-lg">
+        <h1 class="text-2xl font-bold">Панель администратора</h1>
+        <nav class="mt-2">
+            <ul class="flex space-x-4">
+                <li><a href="#" id="songsLink" class="hover:text-blue-300 transition-colors">Песни</a></li>
+                <li><a href="#" id="usersLink" class="hover:text-blue-300 transition-colors">Пользователи</a></li>
+                <li><a href="#" id="genresLink" class="hover:text-blue-300 transition-colors">Жанры</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="mainContent" class="p-6 flex-grow">
+        
+        <section id="songsSection" class="hidden opacity-0 transform translate-y-4 transition-opacity transition-transform duration-500 ease-in-out">
+            <h2 class="text-xl font-semibold mb-4">Управление песнями</h2>
+            <form id="songForm" class="space-y-4" enctype="multipart/form-data">
+                <input type="hidden" id="songId" name="songId">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Название:</label>
+                    <input type="text" id="title" name="title" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="artist" class="block text-sm font-medium text-gray-700">Исполнитель:</label>
+                    <input type="text" id="artist" name="artist" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="genreId" class="block text-sm font-medium text-gray-700">Жанр:</label>
+                    <select id="genreId" name="genreId" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                        <option value="">Выберите жанр</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="mood" class="block text-sm font-medium text-gray-700">Настроение:</label>
+                    <input type="text" id="mood" name="mood" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="musicFile" class="block text-sm font-medium text-gray-700">Файл музыки:</label>
+                    <input type="file" id="musicFile" name="musicFile" class="mt-1 block w-full p-2 text-sm border border-gray-300 rounded-md shadow-sm" required>
+                </div>
+                <div>
+                    <label for="videoFile" class="block text-sm font-medium text-gray-700">Файл видео:</label>
+                    <input type="file" id="videoFile" name="videoFile" class="mt-1 block w-full p-2 text-sm border border-gray-300 rounded-md shadow-sm" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md shadow-md hover:bg-blue-700 transition">Сохранить песню</button>
+            </form>
+            <h3 class="text-lg font-semibold mt-6">Список песен</h3>
+            <ul id="songsList" class="mt-4 space-y-2"></ul>
+        </section>
+
+        
+        <section id="usersSection" class="hidden opacity-0 transform translate-y-4 transition-opacity transition-transform duration-500 ease-in-out">
+            <h2 class="text-xl font-semibold mb-4">Список пользователей</h2>
+            <form id="userForm" class="space-y-4">
+                <input type="hidden" id="userId" name="userId">
+                <div>
+                    <label for="userName" class="block text-sm font-medium text-gray-700">Имя пользователя:</label>
+                    <input type="text" id="userName" name="userName" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+                    <input type="email" id="email" name="email" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Пароль:</label>
+                    <input type="password" id="password" name="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700">Роль:</label>
+                    <select id="role" name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                        <option value="Пользователь">Пользователь</option>
+                        <option value="Администратор">Администратор</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md shadow-md hover:bg-blue-700 transition">Сохранить пользователя</button>
+            </form>
+            <h3 class="text-lg font-semibold mt-6">Список пользователей</h3>
+            <ul id="usersList" class="mt-4 space-y-2"></ul>
+        </section>
+
+        <!-- Секция для отображения жанров -->
+        <section id="genresSection" class="hidden opacity-0 transform translate-y-4 transition-opacity transition-transform duration-500 ease-in-out">
+            <h2 class="text-xl font-semibold mb-4">Список жанров</h2>
+            <form id="genreForm" class="space-y-4">
+                <input type="hidden" id="genreIdHidden" name="genreId"> 
+                <div>
+                    <label for="genreName" class="block text-sm font-medium text-gray-700">Название жанра:</label>
+                    <input type="text" id="genreName" name="genreName" class="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md shadow-md hover:bg-blue-700 transition">Сохранить жанр</button>
+            </form>
+            <h3 class="text-lg font-semibold mt-6">Список жанров</h3>
+            <ul id="genresList" class="mt-4 space-y-2"></ul>
+        </section>
+    </main>
+
+    <footer class="bg-blue-600 text-white text-center py-3 mt-auto">
+        <p>&copy; 2024 Панель администратора</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+
+    <script>
+        // Добавляем плавное появление секций при их отображении
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition', 'duration-500', 'ease-in-out');
+        });
+
+        // Добавляем обработку переходов между секциями
+        const sections = {
+            songsLink: document.getElementById('songsSection'),
+            usersLink: document.getElementById('usersSection'),
+            genresLink: document.getElementById('genresSection'),
+        };
+
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Скрываем все секции с анимацией
+                Object.values(sections).forEach(section => {
+                    section.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                    section.classList.remove('opacity-100', 'translate-y-0');
+                });
+                // Отображаем выбранную секцию
+                const targetSection = sections[e.target.id];
+                targetSection.classList.remove('hidden');
+                setTimeout(() => {
+                    targetSection.classList.remove('opacity-0', 'translate-y-4');
+                    targetSection.classList.add('opacity-100', 'translate-y-0');
+                }, 50);
+            });
+        });
+    </script>
+</body>
+</html>
